@@ -1,9 +1,12 @@
 package ir.masoudkarimi.network
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ir.masoudkarimi.network.resource.MoviesRemoteResource
+import ir.masoudkarimi.network.resource.MoviesRemoteSourceImpl
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
@@ -14,6 +17,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class NetworkModule {
+
+    @Binds
+    abstract fun bindMoviesRemoteSource(impl: MoviesRemoteSourceImpl): MoviesRemoteResource
 
     companion object {
 
@@ -44,6 +50,5 @@ abstract class NetworkModule {
         fun provideMoviesService(retrofit: Retrofit): MoviesService {
             return retrofit.create(MoviesService::class.java)
         }
-
     }
 }

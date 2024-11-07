@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MoviesResponse(
     @SerialName("data")
-    val data: List<Movie>
+    val data: List<MovieDto>
 )
 
 @Serializable
-data class Movie(
+data class MovieDto(
     @SerialName("id")
     val id: Int,
     @SerialName("title")
