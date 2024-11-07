@@ -1,4 +1,4 @@
-package ir.masoudkarimi.network.mapper
+package ir.masoudkarimi.movies.resource
 
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.network.model.MovieDto

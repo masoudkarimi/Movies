@@ -76,6 +76,9 @@ dependencies {
 
     implementation(projects.feature.moviesList)
     implementation(projects.feature.movieDetail)
+    implementation(projects.data.network)
+    implementation(projects.data.movies)
+    implementation(projects.domain.movies)
 }
 
 hilt {

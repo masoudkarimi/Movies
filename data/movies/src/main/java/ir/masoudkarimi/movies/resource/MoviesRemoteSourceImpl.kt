@@ -1,8 +1,7 @@
-package ir.masoudkarimi.network.resource
+package ir.masoudkarimi.movies.resource
 
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.network.MoviesService
-import ir.masoudkarimi.network.mapper.MovieMapper
 import javax.inject.Inject
 
 class MoviesRemoteSourceImpl @Inject constructor(
