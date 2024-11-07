@@ -16,6 +16,7 @@ retrofit = "2.11.0"
 hilt-android = "2.52"
 hilt-navigation-compose = "1.2.0"
 ksp = "1.9.25-1.0.20"
+javax-inject = "1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,7 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
