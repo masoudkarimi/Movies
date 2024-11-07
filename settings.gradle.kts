@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 include(":app")
 include(":feature:movies-list")
 include(":feature:movie-detail")
+include(":data:model")
