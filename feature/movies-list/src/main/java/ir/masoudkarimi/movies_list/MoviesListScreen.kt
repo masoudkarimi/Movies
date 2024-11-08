@@ -1,5 +1,6 @@
 package ir.masoudkarimi.movies_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,7 +40,7 @@ import ir.masoudkarimi.model.Movie
 @Composable
 fun MoviesListScreen(
     modifier: Modifier = Modifier,
-    onMovieClick: () -> Unit = {},
+    onMovieClick: (Movie) -> Unit = {},
     viewModel: MoviesListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -71,6 +72,7 @@ fun MoviesListScreen(
                 MoviesList(
                     modifier = modifier,
                     movies = uiState.movies,
+                    onMovieClick = onMovieClick
                 )
             }
         }
@@ -80,24 +82,26 @@ fun MoviesListScreen(
 @Composable
 fun MoviesList(
     modifier: Modifier,
-    movies: List<Movie>
+    movies: List<Movie>,
+    onMovieClick: (Movie) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(movies, key = { it.movieId }) { movie ->
-            MovieCard(movie, false)
+            MovieCard(movie, false, onMovieClick)
         }
     }
 }
 
 @Composable
-fun MovieCard(movie: Movie, isBasketEnabled: Boolean) {
+fun MovieCard(movie: Movie, isBasketEnabled: Boolean, onMovieClick: (Movie) -> Unit) {
     Card(
         modifier = Modifier
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onMovieClick(movie) },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
