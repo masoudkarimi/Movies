@@ -6,5 +6,6 @@ data class MoviesListUiState(
     val isLoading: Boolean = false,
     val movies: List<Movie> = emptyList(),
     val error: String? = null,
-    val isBasketEnabled: Boolean = false
+    val isBasketEnabled: Boolean = false,
+    val basketSize: Int = 0
 )

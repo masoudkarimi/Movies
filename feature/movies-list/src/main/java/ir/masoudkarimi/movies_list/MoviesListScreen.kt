@@ -60,7 +60,8 @@ fun MoviesListScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CenterAlignedTopAppBar(
@@ -72,7 +73,9 @@ fun MoviesListScreen(
                     Text(text = "Movies")
                 },
                 actions = {
-                    BasketIconWithBadge(basketItemCount = 13)
+                    if (uiState.basketSize != 0) {
+                        BasketIconWithBadge(basketSize = uiState.basketSize)
+                    }
                 },
                 scrollBehavior = scrollBehavior
             )
@@ -179,7 +182,7 @@ fun MovieCard(movie: Movie, isBasketEnabled: Boolean, onMovieClick: (Movie) -> U
 }
 
 @Composable
-fun BasketIconWithBadge(basketItemCount: Int) {
+fun BasketIconWithBadge(basketSize: Int) {
     Box(
         modifier = Modifier
             .padding(end = 16.dp)
@@ -192,7 +195,7 @@ fun BasketIconWithBadge(basketItemCount: Int) {
         )
 
         // Show badge only if there are items in the basket
-        if (basketItemCount > 0) {
+        if (basketSize > 0) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
@@ -203,7 +206,7 @@ fun BasketIconWithBadge(basketItemCount: Int) {
                     .padding(2.dp)
             ) {
                 Text(
-                    text = "$basketItemCount",
+                    text = "$basketSize",
                     color = Color.White,
                     fontSize = 10.sp,
                     style = MaterialTheme.typography.bodySmall

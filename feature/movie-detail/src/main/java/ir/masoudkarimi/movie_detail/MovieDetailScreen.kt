@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -44,6 +45,7 @@ fun MovieDetailScreen(
     viewModel: MovieDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -90,6 +92,9 @@ fun MovieDetailScreen(
                 uiState.movie != null -> {
                     MovieCard(
                         movie = uiState.movie!!,
+                        isAddedToBasket = uiState.isAddedToBasket,
+                        onAddToBasketClick = viewModel::addMovieToBasket,
+                        onRemoveFromBasketClick = viewModel::removeMovieFromBasket
                     )
                 }
             }
@@ -101,7 +106,10 @@ fun MovieDetailScreen(
 @Composable
 fun MovieCard(
     movie: Movie,
-    modifier: Modifier = Modifier
+    isAddedToBasket: Boolean,
+    modifier: Modifier = Modifier,
+    onAddToBasketClick: (Movie) -> Unit,
+    onRemoveFromBasketClick: (Movie) -> Unit,
 ) {
     Card(
         modifier = modifier
@@ -133,14 +141,28 @@ fun MovieCard(
                 )
 
                 Button(
-                    onClick = { /* Handle Add to Basket/Remove from Basket */ },
+                    onClick = {
+                        if (isAddedToBasket) {
+                            onRemoveFromBasketClick(movie)
+                        } else {
+                            onAddToBasketClick(movie)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors().copy(
+                        containerColor = if (isAddedToBasket) {
+                            MaterialTheme.colorScheme.error
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        }
+                    ),
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth()
                 ) {
-                    Text("Add to Basket")
+                    Text(
+                        if (isAddedToBasket) "Remove from Basket" else "Add to Basket"
+                    )
                 }
-
             }
 
         }

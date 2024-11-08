@@ -7,5 +7,6 @@ import ir.masoudkarimi.model.Movie
 data class MovieDetailUiState(
     val isLoading: Boolean = false,
     val movie: Movie? = null,
+    val isAddedToBasket: Boolean = false,
     val error: String? = null
 )

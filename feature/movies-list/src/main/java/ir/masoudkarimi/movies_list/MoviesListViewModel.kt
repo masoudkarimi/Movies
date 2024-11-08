@@ -1,8 +1,10 @@
 package ir.masoudkarimi.movies_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ir.masoudkarimi.basket.GetBasketSizeUseCase
 import ir.masoudkarimi.movies.GetMoviesListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,12 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesListViewModel @Inject constructor(
-    private val moviesList: GetMoviesListUseCase
+    private val moviesList: GetMoviesListUseCase,
+    private val getBasketSize: GetBasketSizeUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MoviesListUiState())
     val uiState: StateFlow<MoviesListUiState> = _uiState
-        .onStart { loadMovies() }
+        .onStart {
+            loadMovies()
+            observeBasket()
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -49,6 +55,15 @@ class MoviesListViewModel @Inject constructor(
                             movies = emptyList()
                         )
                     }
+                }
+        }
+    }
+
+    private fun observeBasket() {
+        viewModelScope.launch {
+            getBasketSize()
+                .collect { basketSize ->
+                    _uiState.update { it.copy(basketSize = basketSize) }
                 }
         }
     }

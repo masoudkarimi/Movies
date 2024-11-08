@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ir.masoudkarimi.movies_list"
+    namespace = "ir.masoudkarimi.basket"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -32,28 +32,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
-    }
 }
 
 dependencies {
-    implementation(projects.domain.movies)
-    implementation(projects.domain.basket)
-    implementation(projects.domain.model)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.material3)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.lifecycle.runtime.compose)
-    implementation(libs.coil)
-    implementation(libs.coil.network)
+    implementation(projects.domain.model)
+    implementation(projects.domain.basket)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

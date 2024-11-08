@@ -78,8 +78,10 @@ dependencies {
     implementation(projects.feature.movieDetail)
     implementation(projects.data.network)
     implementation(projects.data.movies)
+    implementation(projects.data.basket)
     implementation(projects.domain.model)
     implementation(projects.domain.movies)
+    implementation(projects.domain.basket)
 }
 
 hilt {
