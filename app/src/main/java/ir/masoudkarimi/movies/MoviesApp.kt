@@ -27,7 +27,7 @@ fun MoviesApp(
         ) {
             MoviesListScreen(
                 onMovieClick = { movie ->
-                    navController.navigate("movie/detail/${movie.movieId}")
+                    navController.navigate("movie/detail/${movie.id}")
                 }
             )
         }

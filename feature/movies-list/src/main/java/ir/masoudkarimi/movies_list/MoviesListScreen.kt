@@ -125,7 +125,7 @@ fun MoviesList(
         contentPadding = PaddingValues(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(movies, key = { it.movieId }) { movie ->
+        items(movies, key = { it.id }) { movie ->
             MovieCard(movie, false, onMovieClick)
         }
     }
