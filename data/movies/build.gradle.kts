@@ -37,7 +37,7 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(projects.data.model)
+    implementation(projects.domain.model)
     implementation(projects.data.network)
     implementation(projects.domain.movies)
     testImplementation(libs.junit)

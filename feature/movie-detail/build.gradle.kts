@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.network)
     implementation(projects.domain.movies)
-    implementation(projects.data.model)
+    implementation(projects.domain.model)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     testImplementation(libs.junit)

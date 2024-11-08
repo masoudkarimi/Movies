@@ -9,6 +9,6 @@ java {
 }
 
 dependencies {
-    implementation(projects.data.model)
+    implementation(projects.domain.model)
     implementation(libs.javax.inject)
 }

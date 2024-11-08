@@ -42,7 +42,7 @@ android {
 
 dependencies {
     implementation(projects.domain.movies)
-    implementation(projects.data.model)
+    implementation(projects.domain.model)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(platform(libs.androidx.compose.bom))

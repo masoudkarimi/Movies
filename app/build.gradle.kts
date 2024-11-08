@@ -78,7 +78,7 @@ dependencies {
     implementation(projects.feature.movieDetail)
     implementation(projects.data.network)
     implementation(projects.data.movies)
-    implementation(projects.data.model)
+    implementation(projects.domain.model)
     implementation(projects.domain.movies)
 }
 
