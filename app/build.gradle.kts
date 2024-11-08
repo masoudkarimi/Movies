@@ -79,6 +79,7 @@ dependencies {
     implementation(projects.data.network)
     implementation(projects.data.movies)
     implementation(projects.data.basket)
+    implementation(projects.data.featureFlag)
     implementation(projects.domain.model)
 }
 
