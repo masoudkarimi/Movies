@@ -69,33 +69,35 @@ class MoviesListViewModel @Inject constructor(
         }
     }
 
+    private fun updateLoadingState(isLoading: Boolean) {
+        _uiState.update { it.copy(isLoading = isLoading) }
+    }
+
     private fun loadMovies() {
-        _uiState.update { it.copy(isLoading = true) }
+        updateLoadingState(true)
         viewModelScope.launch {
-            moviesList()
-                .onSuccess { movies ->
-                    _uiState.update { state ->
-                        state.copy(
-                            isLoading = false,
-                            error = null,
-                            movies = state.movies + movies.map { movie ->
-                                MovieState(
-                                    movie = movie,
-                                    isAddedToBasket = false
-                                )
-                            }
-                        )
-                    }
+            moviesList().fold(
+                onSuccess = { movies -> handleMoviesSuccess(movies) },
+                onFailure = { handleMoviesFailure() }
+            )
+        }
+    }
+
+    private fun handleMoviesSuccess(movies: List<Movie>) {
+        _uiState.update { state ->
+            state.copy(
+                isLoading = false,
+                error = null,
+                movies = state.movies + movies.map { movie ->
+                    MovieState(movie = movie, isAddedToBasket = false)
                 }
-                .onFailure {
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = "Failed to load movies",
-                            movies = emptyList()
-                        )
-                    }
-                }
+            )
+        }
+    }
+
+    private fun handleMoviesFailure() {
+        _uiState.update {
+            it.copy(isLoading = false, error = "Failed to load movies", movies = emptyList())
         }
     }
 
