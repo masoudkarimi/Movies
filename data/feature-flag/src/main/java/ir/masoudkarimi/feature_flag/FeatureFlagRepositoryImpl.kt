@@ -5,7 +5,7 @@ import ir.masoudkarimi.feature_flag.config.ProviderSorter
 import javax.inject.Inject
 
 class FeatureFlagRepositoryImpl @Inject constructor(
-    private val providers: List<@JvmSuppressWildcards FeatureFlagProvider>,
+    private val providers: Set<@JvmSuppressWildcards FeatureFlagProvider>,
     private val providerSorter: ProviderSorter
 ) : FeatureFlagRepository {
     private val sortedProviders by lazy {

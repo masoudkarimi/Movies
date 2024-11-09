@@ -40,7 +40,7 @@ class FeatureFlagRepositoryImplTest {
 
     private fun setupRepository() {
         featureFlagRepository = FeatureFlagRepositoryImpl(
-            listOf(firebaseFlagProvider, growthBookFlagProvider),
+            setOf(firebaseFlagProvider, growthBookFlagProvider),
             providerSorter
         )
     }

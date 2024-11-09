@@ -25,11 +25,9 @@ abstract class FeatureFlagModule {
 
     @Binds
     @IntoSet
-    @Singleton
     abstract fun bindGrowthBookFlagProvider(impl: GrowthBookFlagProvider): FeatureFlagProvider
 
     @Binds
     @IntoSet
-    @Singleton
     abstract fun bindFirebaseFlagProvider(impl: FirebaseFlagProvider): FeatureFlagProvider
 }
