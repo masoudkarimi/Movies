@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.coil)
     implementation(libs.coil.network)
-    testImplementation(libs.junit)
+    testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
