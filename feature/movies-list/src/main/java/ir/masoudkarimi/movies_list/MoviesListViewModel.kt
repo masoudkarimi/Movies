@@ -10,6 +10,7 @@ import ir.masoudkarimi.basket.RemoveFromBasketUseCase
 import ir.masoudkarimi.feature_flag.FeatureFlag
 import ir.masoudkarimi.feature_flag.FeatureFlagRepository
 import ir.masoudkarimi.model.Movie
+import ir.masoudkarimi.model.Product
 import ir.masoudkarimi.movies.GetMoviesListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -44,15 +45,7 @@ class MoviesListViewModel @Inject constructor(
         state.copy(
             isBasketEnabled = featureFlagEnabled,
             basketSize = basketContent.size,
-            movies = state.movies.map {  movie ->
-                if (featureFlagEnabled) {
-                    movie.copy(
-                        isAddedToBasket = basketContent.contains(movie.movie)
-                    )
-                } else {
-                    movie
-                }
-            }
+            movies = updateMoviesWithBasketContent(state.movies, featureFlagEnabled, basketContent)
         )
     }.onStart {
         loadMovies()
@@ -62,6 +55,19 @@ class MoviesListViewModel @Inject constructor(
         initialValue = MoviesListUiState()
     )
 
+    private fun updateMoviesWithBasketContent(
+        movies: List<MovieState>,
+        isBasketFeatureEnabled: Boolean,
+        basketContent: List<Product>
+    ): List<MovieState> {
+        return movies.map { movie ->
+            if (isBasketFeatureEnabled) {
+                movie.copy(isAddedToBasket = basketContent.contains(movie.movie))
+            } else {
+                movie
+            }
+        }
+    }
 
     private fun loadMovies() {
         _uiState.update { it.copy(isLoading = true) }
