@@ -28,12 +28,15 @@ class MovieDetailViewModel @Inject constructor(
     private val observeItemInBasket: ObserveItemInBasketUseCase
 ) : ViewModel() {
 
-    private val movieId: Int? = savedStateHandle.get<String>("movieId")?.toInt()
-
+    private val movieId = savedStateHandle.get<String>("movieId")?.toIntOrNull()
     private val _uiState = MutableStateFlow(MovieDetailUiState())
     val uiState: StateFlow<MovieDetailUiState> = _uiState
         .onStart {
-            fetchMovieDetails(movieId)
+            if (movieId != null) {
+                fetchMovieDetails(movieId)
+            } else {
+                setErrorState(ERROR_MISSING_MOVIE_ID)
+            }
         }
         .stateIn(
             scope = viewModelScope,
@@ -41,37 +44,28 @@ class MovieDetailViewModel @Inject constructor(
             initialValue = MovieDetailUiState()
         )
 
-    private fun fetchMovieDetails(movieId: Int?) {
-        if (movieId == null) {
-            _uiState.update {
-                it.copy(isLoading = false, error = "Mossing movie ID")
-            }
-            return
-        }
+    private fun setLoadingState(isLoading: Boolean) {
+        _uiState.update { it.copy(isLoading = isLoading) }
+    }
 
-        _uiState.update {
-            it.copy(isLoading = true)
-        }
+    private fun setErrorState(message: String) {
+        _uiState.update { it.copy(isLoading = false, error = message) }
+    }
 
+    private fun setMovieDetails(movie: Movie) {
+        _uiState.update { it.copy(isLoading = false, movie = movie, error = null) }
+    }
+
+    private fun fetchMovieDetails(movieId: Int) {
+        setLoadingState(true)
         viewModelScope.launch {
             getMovieDetail(movieId)
                 .onSuccess { movie ->
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = null,
-                            movie = movie
-                        )
-                    }
+                    setMovieDetails(movie)
                     checkItemInBasket(movie)
                 }
                 .onFailure {
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = "Failed to load movie details"
-                        )
-                    }
+                    setErrorState(ERROR_LOADING_DETAILS)
                 }
         }
     }
@@ -111,5 +105,10 @@ class MovieDetailViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    companion object {
+        private const val ERROR_LOADING_DETAILS = "Failed to load movie details"
+        private const val ERROR_MISSING_MOVIE_ID = "Missing movie ID"
     }
 }
