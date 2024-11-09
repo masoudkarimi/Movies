@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -109,7 +110,10 @@ fun MoviesListScreen(
                     MoviesList(
                         modifier = modifier,
                         movies = uiState.movies,
-                        onMovieClick = onMovieClick
+                        isAddToBasketEnabled = uiState.isBasketEnabled,
+                        onMovieClick = onMovieClick,
+                        onAddToBasketClick = viewModel::addMovieToBasket,
+                        onRemoveFromBasketClick = viewModel::removeMovieFromBasket
                     )
                 }
             }
@@ -120,37 +124,52 @@ fun MoviesListScreen(
 @Composable
 fun MoviesList(
     modifier: Modifier,
-    movies: List<Movie>,
-    onMovieClick: (Movie) -> Unit
+    movies: List<MovieState>,
+    isAddToBasketEnabled: Boolean,
+    onMovieClick: (Movie) -> Unit,
+    onAddToBasketClick: (Movie) -> Unit,
+    onRemoveFromBasketClick: (Movie) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(movies, key = { it.id }) { movie ->
-            MovieCard(movie, false, onMovieClick)
+        items(movies, key = { it.movie.id }) { movie ->
+            MovieCard(
+                movie,
+                isAddToBasketEnabled,
+                onMovieClick,
+                onAddToBasketClick,
+                onRemoveFromBasketClick
+            )
         }
     }
 }
 
 @Composable
-fun MovieCard(movie: Movie, isBasketEnabled: Boolean, onMovieClick: (Movie) -> Unit) {
+fun MovieCard(
+    movieState: MovieState,
+    isBasketEnabled: Boolean,
+    onMovieClick: (Movie) -> Unit,
+    onAddToBasketClick: (Movie) -> Unit,
+    onRemoveFromBasketClick: (Movie) -> Unit,
+) {
     Card(
         modifier = Modifier
             .wrapContentHeight()
             .fillMaxWidth()
-            .clickable { onMovieClick(movie) },
+            .clickable { onMovieClick(movieState.movie) },
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(movie.posterUrl)
+                    .data(movieState.movie.posterUrl)
                     .crossfade(true)
                     .build(),
-                contentDescription = movie.title,
+                contentDescription = movieState.movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -162,17 +181,32 @@ fun MovieCard(movie: Movie, isBasketEnabled: Boolean, onMovieClick: (Movie) -> U
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text(
-                    text = movie.title,
+                    text = movieState.movie.title,
                     style = MaterialTheme.typography.titleMedium
                 )
                 if (isBasketEnabled) {
                     Button(
-                        onClick = { /* Handle Add to Basket/Remove from Basket */ },
+                        onClick = {
+                            if (movieState.isAddedToBasket) {
+                                onRemoveFromBasketClick(movieState.movie)
+                            } else {
+                                onAddToBasketClick(movieState.movie)
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors().copy(
+                            containerColor = if (movieState.isAddedToBasket) {
+                                MaterialTheme.colorScheme.error
+                            } else {
+                                MaterialTheme.colorScheme.primary
+                            }
+                        ),
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxWidth()
                     ) {
-                        Text("Add to Basket")
+                        Text(
+                            if (movieState.isAddedToBasket) "Remove from Basket" else "Add to Basket"
+                        )
                     }
                 }
             }

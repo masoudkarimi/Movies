@@ -44,6 +44,7 @@ dependencies {
     implementation(projects.domain.movies)
     implementation(projects.domain.basket)
     implementation(projects.domain.model)
+    implementation(projects.domain.featureFlag)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(platform(libs.androidx.compose.bom))
