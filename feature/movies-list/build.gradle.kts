@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.android)
     implementation(projects.domain.movies)
     implementation(projects.domain.basket)
     implementation(projects.domain.model)

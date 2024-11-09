@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.coil)
     implementation(libs.coil.network)
+    implementation(projects.core.android)
     implementation(projects.domain.movies)
     implementation(projects.domain.basket)
     implementation(projects.domain.model)

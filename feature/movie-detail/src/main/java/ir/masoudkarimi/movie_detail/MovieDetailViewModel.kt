@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.masoudkarimi.basket.AddItemToBasketUseCase
 import ir.masoudkarimi.basket.ObserveItemInBasketUseCase
 import ir.masoudkarimi.basket.RemoveFromBasketUseCase
+import ir.masoudkarimi.core.android.executeUseCase
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movies.GetMovieDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,43 +59,44 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun fetchMovieDetails(movieId: Int) {
         setLoadingState(true)
-        viewModelScope.launch {
-            getMovieDetail(movieId)
-                .onSuccess { movie ->
-                    setMovieDetails(movie)
-                    checkItemInBasket(movie)
-                }
-                .onFailure {
-                    setErrorState(ERROR_LOADING_DETAILS)
-                }
-        }
+        executeUseCase(
+            useCase = { getMovieDetail(movieId) },
+            onSuccess = { movie ->
+                setMovieDetails(movie)
+                checkItemInBasket(movie)
+            },
+            onFailure = {
+                setErrorState(ERROR_LOADING_DETAILS)
+            }
+        )
     }
 
     fun addMovieToBasket(movie: Movie) {
-        viewModelScope.launch {
-            addToBasket(movie)
-                .onSuccess {
-                    Log.d("MovieDetailViewModel", "Movie added to basket")
-                }
-                .onFailure {
-                    Log.e("MovieDetailViewModel", "Failed to add movie to basket", it)
-                }
-        }
+        executeUseCase(
+            useCase = { addToBasket(movie) },
+            onSuccess = {
+                Log.d("MovieDetailViewModel", "Movie added to basket")
+            },
+            onFailure = {
+                Log.e("MovieDetailViewModel", "Failed to add movie to basket", it)
+            }
+        )
     }
 
     fun removeMovieFromBasket(movie: Movie) {
-        viewModelScope.launch {
-            removeFromBasket(movie)
-                .onSuccess {
-                    Log.d("MovieDetailViewModel", "Movie removed to basket")
-                }
-                .onFailure {
-                    Log.e("MovieDetailViewModel", "Failed to remove movie from basket", it)
-                }
-        }
+        executeUseCase(
+            useCase = { removeFromBasket(movie) },
+            onSuccess = {
+                Log.d("MovieDetailViewModel", "Movie removed to basket")
+            },
+            onFailure = {
+                Log.e("MovieDetailViewModel", "Failed to remove movie from basket", it)
+            }
+        )
     }
 
     private fun checkItemInBasket(movie: Movie) {
+
         viewModelScope.launch {
             observeItemInBasket(movie)
                 .collect { isAddedToBasket ->
