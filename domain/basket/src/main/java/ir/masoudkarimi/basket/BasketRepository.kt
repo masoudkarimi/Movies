@@ -7,5 +7,6 @@ interface BasketRepository {
     suspend fun add(product: Product): Result<Unit>
     suspend fun remove(product: Product): Result<Unit>
     fun observeProduct(product: Product): Flow<Boolean>
+    fun observeBasketContent(): Flow<List<Product>>
     fun getBasketSize(): Flow<Int>
 }

@@ -40,6 +40,10 @@ class BasketRepositoryImpl @Inject constructor() : BasketRepository {
             .map { it.contains(product) }
     }
 
+    override fun observeBasketContent(): Flow<List<Product>> {
+        return products
+    }
+
     override fun getBasketSize(): Flow<Int> {
         return basketSize
     }
