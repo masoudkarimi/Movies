@@ -38,11 +38,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(projects.domain.featureFlag)
-    testImplementation(libs.junit)
-    testImplementation(libs.mockk)
-    testImplementation(libs.mockk.android)
-    testImplementation(libs.google.truth)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

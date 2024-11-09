@@ -66,4 +66,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
+[bundles]
+unitTest = ["junit", "mockk", "mockk-android", "google-truth", "kotlinx-coroutines-test"]
+
 
