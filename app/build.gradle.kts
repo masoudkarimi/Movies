@@ -54,6 +54,24 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    sourceSets {
+        getByName("main") {
+            java {
+                srcDir("src/main/java")
+            }
+        }
+        getByName("debug") {
+            java {
+                srcDir("src/debug/java")
+            }
+        }
+        getByName("release") {
+            java {
+                srcDir("src/release/java")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -85,6 +103,7 @@ dependencies {
     implementation(projects.data.basket)
     implementation(projects.data.featureFlag)
     implementation(projects.domain.model)
+    implementation(projects.domain.featureFlag)
 }
 
 hilt {

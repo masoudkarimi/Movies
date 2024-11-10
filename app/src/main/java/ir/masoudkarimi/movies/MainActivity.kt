@@ -19,14 +19,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviesTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MoviesApp(
+                ContentProvider {
+                    Surface(
                         modifier = Modifier.fillMaxSize(),
-                        navController = rememberNavController()
-                    )
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        MoviesApp(
+                            modifier = Modifier.fillMaxSize(),
+                            navController = rememberNavController()
+                        )
+                    }
                 }
             }
         }

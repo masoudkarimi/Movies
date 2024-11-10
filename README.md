@@ -4,9 +4,9 @@ This project is an Android application named **Movie**, where users can explore 
 
 The project is built following **Clean Architecture** and the **MVVM** (Model-View-ViewModel) pattern to ensure a clean separation of concerns and maintainability.
 
-| Movies Screen                        | Basket Count                        | Movie Detail                        | Feature Flag Disabled                        |
-|--------------------------------------|-------------------------------------|-------------------------------------|----------------------------------------------|
-| ![Movies Screen](/images/shot_1.png) | ![Basket Count](/images/shot_2.png) | ![Movie Detail](/images/shot_3.png) | ![Feature Flag Disabled](/images/shot_4.png) |
+| Movies Screen                        | Basket Count                        | Movie Detail                        | Feature Flag Disabled                        | Debug Drawer                        |
+|--------------------------------------|-------------------------------------|-------------------------------------|----------------------------------------------|-------------------------------------|
+| ![Movies Screen](/images/shot_1.png) | ![Basket Count](/images/shot_2.png) | ![Movie Detail](/images/shot_3.png) | ![Feature Flag Disabled](/images/shot_4.png) | ![Debug Drawer](/images/shot_5.png) |
 
 
 ---
@@ -51,6 +51,6 @@ There are a few features that I didn't implement in the project but could be don
 1. **Exception handling and retrial process**: Add proper error handling and retry logic when calling repository functions or making network requests.
 2. **Design-system module**: Create a design system module to share reusable components across the project.
 3. **UI testing for feature flag**: Implement UI testing to ensure the button is not visible when the feature flag is disabled.
-4. **Debug drawer**: Implement a debug drawer that allows for dynamic changes to the feature flag state for debugging purposes.
+4. **Debug drawer**: ✅ Implement a debug drawer that allows for dynamic changes to the feature flag state for debugging purposes.
 5. **Using ktlint library**: Integrate the ktlint library to enforce and control the code style across the project.
 6. **Gradle convention plugins**: Create Gradle convention plugins to reuse common build logic across different modules in the project.
