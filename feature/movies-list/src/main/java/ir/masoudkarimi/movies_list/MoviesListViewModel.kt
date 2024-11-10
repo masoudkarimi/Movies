@@ -32,20 +32,24 @@ class MoviesListViewModel @Inject constructor(
     private val featureFlagRepository: FeatureFlagRepository
 ) : ViewModel() {
 
-    private val addToCartFeatureFlag = flow {
+    private val addToBasketFeatureFlag = flow {
         emit(featureFlagRepository.isEnabled(FeatureFlag.ADD_TO_BASKET_IN_LIST_SCREEN.key))
     }
 
     private val _uiState = MutableStateFlow(MoviesListUiState())
     val uiState: StateFlow<MoviesListUiState> = combine(
         _uiState,
-        addToCartFeatureFlag,
+        addToBasketFeatureFlag,
         observeBasketContent()
     ) { state, featureFlagEnabled, basketContent ->
         state.copy(
             isBasketEnabled = featureFlagEnabled,
             basketSize = basketContent.size,
-            movies = updateMoviesWithBasketContent(state.movies, featureFlagEnabled, basketContent)
+            movies = if (featureFlagEnabled){
+                updateMoviesWithBasketContent(state.movies, basketContent)
+            } else {
+                state.movies
+            }
         )
     }.onStart {
         loadMovies()
@@ -57,15 +61,10 @@ class MoviesListViewModel @Inject constructor(
 
     private fun updateMoviesWithBasketContent(
         movies: List<MovieState>,
-        isBasketFeatureEnabled: Boolean,
         basketContent: List<Product>
     ): List<MovieState> {
         return movies.map { movie ->
-            if (isBasketFeatureEnabled) {
-                movie.copy(isAddedToBasket = basketContent.contains(movie.movie))
-            } else {
-                movie
-            }
+            movie.copy(isAddedToBasket = basketContent.contains(movie.movie))
         }
     }
 
