@@ -11,6 +11,7 @@ import ir.masoudkarimi.feature_flag.config.FeatureFlagPriorityConfig
 import ir.masoudkarimi.feature_flag.config.ProviderSorter
 import ir.masoudkarimi.feature_flag.providers.FirebaseFlagProvider
 import ir.masoudkarimi.feature_flag.providers.GrowthBookFlagProvider
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -53,7 +54,7 @@ class FeatureFlagRepositoryImplTest {
 
         setupRepository()
 
-        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET)
+        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET).first()
         assertEquals(true, isEnabled)
     }
 
@@ -65,7 +66,7 @@ class FeatureFlagRepositoryImplTest {
 
         setupRepository()
 
-        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET)
+        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET).first()
         assertEquals(false, isEnabled)
     }
 
@@ -77,7 +78,7 @@ class FeatureFlagRepositoryImplTest {
 
         setupRepository()
 
-        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET)
+        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET).first()
         assertEquals(false, isEnabled)
 
         coVerify { firebaseFlagProvider.getValue(ADD_TO_BASKET) }
@@ -92,7 +93,7 @@ class FeatureFlagRepositoryImplTest {
 
         setupRepository()
 
-        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET)
+        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET).first()
         assertEquals(false, isEnabled)
 
         coVerify { growthBookFlagProvider.getValue(ADD_TO_BASKET) }
@@ -105,7 +106,7 @@ class FeatureFlagRepositoryImplTest {
 
         setupRepository()
 
-        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET)
+        val isEnabled = featureFlagRepository.isEnabled(ADD_TO_BASKET).first()
         assertEquals(false, isEnabled)
     }
 }

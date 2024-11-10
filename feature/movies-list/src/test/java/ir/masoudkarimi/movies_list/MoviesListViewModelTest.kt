@@ -17,6 +17,7 @@ import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movies.GetMoviesListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -47,7 +48,7 @@ class MoviesListViewModelTest {
         Dispatchers.setMain(testDispatcher)
         mockkStatic(Log::class)
         every { Log.d(any(), any()) } returns 1
-        coEvery { featureFlagRepository.isEnabled(any()) } returns true
+        coEvery { featureFlagRepository.isEnabled(any()) } returns flowOf(true)
     }
 
     private fun createMoviesListViewModel() = MoviesListViewModel(

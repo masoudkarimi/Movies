@@ -32,14 +32,11 @@ class MoviesListViewModel @Inject constructor(
     private val featureFlagRepository: FeatureFlagRepository
 ) : ViewModel() {
 
-    private val addToBasketFeatureFlag = flow {
-        emit(featureFlagRepository.isEnabled(FeatureFlag.ADD_TO_BASKET_IN_LIST_SCREEN.key))
-    }
 
     private val _uiState = MutableStateFlow(MoviesListUiState())
     val uiState: StateFlow<MoviesListUiState> = combine(
         _uiState,
-        addToBasketFeatureFlag,
+        featureFlagRepository.isEnabled(FeatureFlag.ADD_TO_BASKET_IN_LIST_SCREEN.key),
         observeBasketContent()
     ) { state, featureFlagEnabled, basketContent ->
         state.copy(

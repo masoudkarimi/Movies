@@ -1,5 +1,8 @@
 package ir.masoudkarimi.feature_flag
 
+import kotlinx.coroutines.flow.Flow
+
 interface FeatureFlagRepository {
-    suspend fun isEnabled(flag: String): Boolean
+    fun isEnabled(flag: String): Flow<Boolean>
+    fun setEnabled(flag: String, isEnabled: Boolean)
 }
