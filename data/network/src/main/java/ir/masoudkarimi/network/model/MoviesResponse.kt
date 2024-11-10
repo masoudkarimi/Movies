@@ -16,5 +16,7 @@ data class MovieDto(
     @SerialName("title")
     val title: String,
     @SerialName("poster")
-    val posterUrl: String
+    val posterUrl: String,
+    @SerialName("images")
+    val images: List<String>
 )
