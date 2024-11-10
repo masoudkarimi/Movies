@@ -50,7 +50,7 @@ There are a few features that I didn't implement in the project but could be don
 
 1. **Exception handling and retrial process**: Add proper error handling and retry logic when calling repository functions or making network requests.
 2. **Design-system module**: Create a design system module to share reusable components across the project.
-3. **Screenshot testing for feature flag**: Implement screenshot testing to ensure the button is not visible when the feature flag is disabled.
+3. **UI testing for feature flag**: Implement UI testing to ensure the button is not visible when the feature flag is disabled.
 4. **Debug drawer**: Implement a debug drawer that allows for dynamic changes to the feature flag state for debugging purposes.
 5. **Using ktlint library**: Integrate the ktlint library to enforce and control the code style across the project.
 6. **Gradle convention plugins**: Create Gradle convention plugins to reuse common build logic across different modules in the project.
