@@ -9,7 +9,7 @@ class MovieMapper @Inject constructor() : (MovieDto) -> Movie {
         return Movie(
             id = dto.id,
             title = dto.title,
-            posterUrl = dto.posterUrl
+            posterUrl = dto.images.firstOrNull() ?: dto.posterUrl
         )
     }
 }
