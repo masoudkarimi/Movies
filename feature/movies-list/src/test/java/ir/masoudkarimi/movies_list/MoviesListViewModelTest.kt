@@ -8,7 +8,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.SpyK
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.mockk.unmockkObject
+import io.mockk.unmockkStatic
 import ir.masoudkarimi.basket.AddItemToBasketUseCase
 import ir.masoudkarimi.basket.ObserveBasketContentUseCase
 import ir.masoudkarimi.basket.RemoveFromBasketUseCase
@@ -61,7 +61,7 @@ class MoviesListViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        unmockkObject(Log::class)
+        unmockkStatic(Log::class)
     }
 
     @Test
