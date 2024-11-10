@@ -65,9 +65,7 @@ fun MovieDetailScreen(
                 .fillMaxSize()
                 .padding(
                     top = paddingValues.calculateTopPadding() + 16.dp,
-                    bottom = paddingValues.calculateBottomPadding() + 16.dp,
-                    start = 16.dp,
-                    end = 16.dp
+                    bottom = paddingValues.calculateBottomPadding() + 16.dp
                 ),
         ) {
             when {
@@ -128,7 +126,7 @@ fun MovieCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(140.dp)
+                    .height(160.dp)
                     .clip(RoundedCornerShape(8.dp))
             )
             Spacer(modifier = Modifier.width(16.dp))
