@@ -41,7 +41,7 @@ abstract class NetworkModule {
         ): OkHttpClient {
             return OkHttpClient
                 .Builder()
-                .addNetworkInterceptor(loggingInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .build()
         }
 
