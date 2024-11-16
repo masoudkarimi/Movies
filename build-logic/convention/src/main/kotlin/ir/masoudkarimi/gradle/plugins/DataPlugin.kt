@@ -16,10 +16,6 @@ class DataPlugin : Plugin<Project> {
 
       dependencies {
         add("implementation", project(":domain:model"))
-        add("implementation", libs.findLibrary("hilt.android").get())
-        add("ksp", libs.findLibrary("hilt.android.compiler").get())
-        add("testImplementation", libs.findLibrary("junit").get())
-        add("testImplementation", libs.findBundle("unitTest").get())
       }
     }
   }
