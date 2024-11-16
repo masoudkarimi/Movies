@@ -28,8 +28,8 @@ internal fun Project.configureAndroidDefaultConfigs() {
  */
 internal fun Project.configureKotlinJvm() {
     extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     configureKotlin<KotlinJvmProjectExtension>()
@@ -45,8 +45,7 @@ private inline fun <reified T : KotlinTopLevelExtension> Project.configureKotlin
         is KotlinJvmProjectExtension -> compilerOptions
         else -> throw NotImplementedError("Unsupported project extension $this ${T::class}")
     }.apply {
-        jvmTarget.set(JvmTarget.JVM_11)
-
+        jvmToolchain(17)
         freeCompilerArgs.addAll(
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-opt-in=coil.annotation.ExperimentalCoilApi",
