@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "ir.masoudkarimi.core.android"
 }
+
+dependencies {
+    implementation(libs.lifecycle.viewmodel.compose)
+}

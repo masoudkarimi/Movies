@@ -2,9 +2,12 @@ package ir.masoudkarimi.gradle.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
 import ir.masoudkarimi.gradle.configureAndroidDefaultConfigs
+import ir.masoudkarimi.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.kotlin
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -62,6 +65,11 @@ class ApplicationPlugin : Plugin<Project> {
                         }
                     }
                 }
+            }
+
+            dependencies {
+                add("testImplementation", kotlin("test"))
+                add("testImplementation", libs.findBundle("unitTest").get())
             }
         }
     }

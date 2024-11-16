@@ -30,6 +30,7 @@ class AndroidLibraryPlugin : Plugin<Project> {
 
             dependencies {
                 add("testImplementation", kotlin("test"))
+                add("testImplementation", libs.findBundle("unitTest").get())
             }
         }
     }
