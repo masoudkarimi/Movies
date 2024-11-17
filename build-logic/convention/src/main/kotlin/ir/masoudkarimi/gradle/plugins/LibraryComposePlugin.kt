@@ -7,6 +7,14 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByType
 
+/**
+ * To use this plugin add this in your gradle file:
+ * ```
+ * plugins {
+ *     id("ir.masoudkarimi.gradle.android.library.compose")
+ * }
+ * ```
+ */
 class LibraryComposePlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {

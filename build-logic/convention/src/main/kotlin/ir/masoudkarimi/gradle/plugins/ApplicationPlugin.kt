@@ -9,6 +9,14 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
 
+/**
+ * To use this plugin add this in your gradle file:
+ * ```
+ * plugins {
+ *     id("ir.masoudkarimi.gradle.android.application")
+ * }
+ * ```
+ */
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {

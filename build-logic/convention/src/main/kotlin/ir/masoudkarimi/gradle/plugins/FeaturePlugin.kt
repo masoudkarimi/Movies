@@ -5,6 +5,14 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
+/**
+ * To use this plugin add this in your gradle file:
+ * ```
+ * plugins {
+ *     id("ir.masoudkarimi.gradle.android.feature")
+ * }
+ * ```
+ */
 class FeaturePlugin: Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
@@ -16,17 +24,6 @@ class FeaturePlugin: Plugin<Project> {
             dependencies {
                 add("implementation", project(":domain:model"))
                 add("implementation", project(":core:android"))
-
-                add("implementation", libs.findLibrary("androidx.ui").get())
-                add("implementation", libs.findLibrary("androidx.material3").get())
-                add("implementation", libs.findLibrary("hilt.navigation.compose").get())
-                add("implementation", libs.findLibrary("lifecycle.viewmodel.compose").get())
-                add("implementation", libs.findLibrary("hilt.navigation.compose").get())
-                add("implementation", libs.findLibrary("lifecycle.runtime.compose").get())
-                add("implementation", libs.findLibrary("lifecycle.viewmodel.compose").get())
-                add("testImplementation", libs.findBundle("unitTest").get())
-                add("androidTestImplementation", libs.findLibrary("androidx.junit").get())
-                add("androidTestImplementation", libs.findLibrary("androidx.espresso.core").get())
             }
         }
     }
