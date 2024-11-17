@@ -53,4 +53,4 @@ There are a few features that I didn't implement in the project but could be don
 3. **UI testing for feature flag**: Implement UI testing to ensure the button is not visible when the feature flag is disabled.
 4. **Debug drawer**: ✅ Implement a debug drawer that allows for dynamic changes to the feature flag state for debugging purposes.
 5. **Using ktlint library**: Integrate the ktlint library to enforce and control the code style across the project.
-6. **Gradle convention plugins**: Create Gradle convention plugins to reuse common build logic across different modules in the project.
+6. **Gradle convention plugins**: ✅ Create Gradle convention plugins to reuse common build logic across different modules in the project.
