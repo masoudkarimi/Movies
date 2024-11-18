@@ -24,6 +24,7 @@ class FeaturePlugin: Plugin<Project> {
             dependencies {
                 add("implementation", project(":domain:model"))
                 add("implementation", project(":core:android"))
+                add("implementation", libs.findLibrary("hilt.navigation.compose").get())
             }
         }
     }
