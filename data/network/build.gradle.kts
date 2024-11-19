@@ -1,5 +1,6 @@
 plugins {
     id("ir.masoudkarimi.gradle.android.data")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
