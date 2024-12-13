@@ -20,8 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -48,9 +46,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import ir.masoudkarimi.designsystem.DestructiveButton
+import ir.masoudkarimi.designsystem.ErrorState
+import ir.masoudkarimi.designsystem.PrimaryButton
 import ir.masoudkarimi.model.Movie
-import ir.masoudkarimi.movies_list.component.AddToBasketButton
-import ir.masoudkarimi.movies_list.component.RemoveFromBasketButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -124,30 +123,6 @@ fun MoviesListScreen(
 }
 
 @Composable
-fun ErrorState(
-    error: String,
-    modifier: Modifier = Modifier,
-    onRetryClick: () -> Unit,
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = error,
-            color = Color.Red,
-            modifier = Modifier
-                .wrapContentHeight(),
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Button(onClick = onRetryClick) {
-            Text(text = "Try Again")
-        }
-    }
-}
-
-@Composable
 fun MoviesList(
     modifier: Modifier,
     movies: List<MovieState>,
@@ -212,9 +187,17 @@ fun MovieCard(
                 )
                 if (isBasketEnabled) {
                     if (movieState.isAddedToBasket) {
-                        RemoveFromBasketButton(onClick = { onRemoveFromBasketClick(movieState.movie) })
+                        DestructiveButton(
+                            onClick = { onRemoveFromBasketClick(movieState.movie) }
+                        ) {
+                            Text(text = "Remove From Basket")
+                        }
                     } else {
-                        AddToBasketButton(onClick = { onAddToBasketClick(movieState.movie) })
+                        PrimaryButton(
+                            onClick = { onAddToBasketClick(movieState.movie) }
+                        ) {
+                            Text(text = "Add To Basket")
+                        }
                     }
                 }
             }

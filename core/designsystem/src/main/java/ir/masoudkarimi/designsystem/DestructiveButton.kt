@@ -1,5 +1,6 @@
-package ir.masoudkarimi.movies_list.component
+package ir.masoudkarimi.designsystem
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -11,19 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AddToBasketButton(
+fun DestructiveButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
 ) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors().copy(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.error
         ),
         modifier = modifier
             .padding(8.dp)
-            .fillMaxWidth()
-    ) {
-        Text("Add to Basket")
-    }
+            .fillMaxWidth(),
+        content = content
+    )
 }

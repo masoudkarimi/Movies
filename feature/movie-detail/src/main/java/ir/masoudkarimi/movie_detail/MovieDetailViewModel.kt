@@ -33,17 +33,21 @@ class MovieDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(MovieDetailUiState())
     val uiState: StateFlow<MovieDetailUiState> = _uiState
         .onStart {
-            if (movieId != null) {
-                fetchMovieDetails(movieId)
-            } else {
-                setErrorState(ERROR_MISSING_MOVIE_ID)
-            }
+            loadMovie()
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = MovieDetailUiState()
         )
+
+    private fun loadMovie() {
+        if (movieId != null) {
+            fetchMovieDetails(movieId)
+        } else {
+            setErrorState(ERROR_MISSING_MOVIE_ID)
+        }
+    }
 
     private fun setLoadingState(isLoading: Boolean) {
         _uiState.update { it.copy(isLoading = isLoading) }
@@ -107,6 +111,10 @@ class MovieDetailViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun retryClicked() {
+        loadMovie()
     }
 
     companion object {

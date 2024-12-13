@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.domain.movies)
     implementation(projects.domain.basket)
     implementation(projects.domain.model)
+    implementation(projects.core.designsystem)
     implementation(libs.coil)
     implementation(libs.coil.network)
 }

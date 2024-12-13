@@ -36,6 +36,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import ir.masoudkarimi.designsystem.DestructiveButton
+import ir.masoudkarimi.designsystem.ErrorState
+import ir.masoudkarimi.designsystem.PrimaryButton
 import ir.masoudkarimi.model.Movie
 
 
@@ -78,12 +81,12 @@ fun MovieDetailScreen(
                 }
 
                 uiState.error != null -> {
-                    Text(
-                        text = uiState.error ?: "Unknown error",
-                        color = Color.Red,
+                    ErrorState(
                         modifier = Modifier
                             .wrapContentHeight()
-                            .align(Alignment.Center)
+                            .align(Alignment.Center),
+                        onRetryClick = viewModel::retryClicked,
+                        error = uiState.error ?: "Unknown error",
                     )
                 }
 
@@ -138,28 +141,18 @@ fun MovieCard(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                Button(
-                    onClick = {
-                        if (isAddedToBasket) {
-                            onRemoveFromBasketClick(movie)
-                        } else {
-                            onAddToBasketClick(movie)
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors().copy(
-                        containerColor = if (isAddedToBasket) {
-                            MaterialTheme.colorScheme.error
-                        } else {
-                            MaterialTheme.colorScheme.primary
-                        }
-                    ),
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        if (isAddedToBasket) "Remove from Basket" else "Add to Basket"
-                    )
+                if (isAddedToBasket) {
+                    DestructiveButton(
+                        onClick = { onRemoveFromBasketClick(movie) }
+                    ) {
+                        Text(text = "Remove From Basket")
+                    }
+                } else {
+                    PrimaryButton(
+                        onClick = { onAddToBasketClick(movie) }
+                    ) {
+                        Text(text = "Add To Basket")
+                    }
                 }
             }
 

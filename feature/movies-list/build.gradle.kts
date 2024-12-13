@@ -13,6 +13,7 @@ dependencies {
     implementation(projects.domain.basket)
     implementation(projects.domain.model)
     implementation(projects.domain.featureFlag)
+    implementation(projects.core.designsystem)
     implementation(libs.coil)
     implementation(libs.coil.network)
 }
