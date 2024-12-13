@@ -49,6 +49,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import ir.masoudkarimi.model.Movie
+import ir.masoudkarimi.movies_list.component.AddToBasketButton
+import ir.masoudkarimi.movies_list.component.RemoveFromBasketButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -209,28 +211,10 @@ fun MovieCard(
                     style = MaterialTheme.typography.titleMedium
                 )
                 if (isBasketEnabled) {
-                    Button(
-                        onClick = {
-                            if (movieState.isAddedToBasket) {
-                                onRemoveFromBasketClick(movieState.movie)
-                            } else {
-                                onAddToBasketClick(movieState.movie)
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors().copy(
-                            containerColor = if (movieState.isAddedToBasket) {
-                                MaterialTheme.colorScheme.error
-                            } else {
-                                MaterialTheme.colorScheme.primary
-                            }
-                        ),
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            if (movieState.isAddedToBasket) "Remove from Basket" else "Add to Basket"
-                        )
+                    if (movieState.isAddedToBasket) {
+                        RemoveFromBasketButton(onClick = { onRemoveFromBasketClick(movieState.movie) })
+                    } else {
+                        AddToBasketButton(onClick = { onAddToBasketClick(movieState.movie) })
                     }
                 }
             }
