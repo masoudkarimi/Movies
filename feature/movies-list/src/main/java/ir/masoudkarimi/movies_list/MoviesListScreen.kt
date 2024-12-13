@@ -97,12 +97,12 @@ fun MoviesListScreen(
                 }
 
                 uiState.error != null -> {
-                    Text(
-                        text = uiState.error ?: "Unknown error",
-                        color = Color.Red,
+                    ErrorState(
                         modifier = Modifier
                             .wrapContentHeight()
-                            .align(Alignment.Center)
+                            .align(Alignment.Center),
+                        onRetryClick = viewModel::retryClicked,
+                        error = uiState.error ?: "Unknown error",
                     )
                 }
 
@@ -117,6 +117,30 @@ fun MoviesListScreen(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ErrorState(
+    error: String,
+    modifier: Modifier = Modifier,
+    onRetryClick: () -> Unit,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = error,
+            color = Color.Red,
+            modifier = Modifier
+                .wrapContentHeight(),
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Button(onClick = onRetryClick) {
+            Text(text = "Try Again")
         }
     }
 }

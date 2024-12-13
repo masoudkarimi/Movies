@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -118,6 +117,10 @@ class MoviesListViewModel @Inject constructor(
                 Log.e("MoviesListViewModel", "Failed to remove movie from basket", it)
             }
         )
+    }
+
+    fun retryClicked() {
+        loadMovies()
     }
 
 }
