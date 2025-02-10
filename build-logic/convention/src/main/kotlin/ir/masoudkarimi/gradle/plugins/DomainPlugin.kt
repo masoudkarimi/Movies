@@ -25,7 +25,9 @@ class DomainPlugin : Plugin<Project> {
         add("implementation", project(":domain:model"))
         add("implementation", libs.findLibrary("kotlinx.coroutines.core").get())
         add("implementation", libs.findLibrary("javax.inject").get())
-
+        add("implementation", platform(libs.findLibrary("arrow.bom").get()))
+        add("implementation", libs.findLibrary("arrow.core").get())
+        add("implementation", libs.findLibrary("arrow.fx.coroutines").get())
       }
     }
   }

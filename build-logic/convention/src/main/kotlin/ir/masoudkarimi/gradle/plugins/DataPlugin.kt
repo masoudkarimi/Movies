@@ -1,5 +1,6 @@
 package ir.masoudkarimi.gradle.plugins
 
+import ir.masoudkarimi.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -23,6 +24,9 @@ class DataPlugin : Plugin<Project> {
 
       dependencies {
         add("implementation", project(":domain:model"))
+        add("implementation", platform(libs.findLibrary("arrow.bom").get()))
+        add("implementation", libs.findLibrary("arrow.core").get())
+        add("implementation", libs.findLibrary("arrow.fx.coroutines").get())
       }
     }
   }
