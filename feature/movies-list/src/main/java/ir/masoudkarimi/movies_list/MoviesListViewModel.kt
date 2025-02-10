@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.masoudkarimi.basket.AddItemToBasketUseCase
 import ir.masoudkarimi.basket.ObserveBasketContentUseCase
 import ir.masoudkarimi.basket.RemoveFromBasketUseCase
-import ir.masoudkarimi.core.android.executeUseCase
 import ir.masoudkarimi.feature_flag.FeatureFlag
 import ir.masoudkarimi.feature_flag.FeatureFlagRepository
 import ir.masoudkarimi.model.Movie
