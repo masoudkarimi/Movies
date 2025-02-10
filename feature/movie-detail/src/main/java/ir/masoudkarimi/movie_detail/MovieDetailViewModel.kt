@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.masoudkarimi.basket.AddItemToBasketUseCase
 import ir.masoudkarimi.basket.ObserveItemInBasketUseCase
 import ir.masoudkarimi.basket.RemoveFromBasketUseCase
-import ir.masoudkarimi.core.android.executeUseCase
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movies.GetMovieDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,16 +62,16 @@ class MovieDetailViewModel @Inject constructor(
 
     private fun fetchMovieDetails(movieId: Int) {
         setLoadingState(true)
-        executeUseCase(
-            useCase = { getMovieDetail(movieId) },
-            onSuccess = { movie ->
-                setMovieDetails(movie)
-                checkItemInBasket(movie)
-            },
-            onFailure = {
-                setErrorState(ERROR_LOADING_DETAILS)
-            }
-        )
+        viewModelScope.launch {
+            getMovieDetail(movieId)
+                .onRight { movie ->
+                    setMovieDetails(movie)
+                    checkItemInBasket(movie)
+                }
+                .onLeft {
+                    setErrorState(ERROR_LOADING_DETAILS)
+                }
+        }
     }
 
     fun addMovieToBasket(movie: Movie) {

@@ -71,11 +71,11 @@ class MoviesListViewModel @Inject constructor(
 
     private fun loadMovies() {
         updateLoadingState(true)
-        executeUseCase(
-            moviesList::invoke,
-            onSuccess = { movies -> handleMoviesSuccess(movies) },
-            onFailure = { handleMoviesFailure() }
-        )
+        viewModelScope.launch {
+            moviesList()
+                .onRight { movies -> handleMoviesSuccess(movies) }
+                .onLeft { handleMoviesFailure() }
+        }
     }
 
     private fun handleMoviesSuccess(movies: List<Movie>) {
