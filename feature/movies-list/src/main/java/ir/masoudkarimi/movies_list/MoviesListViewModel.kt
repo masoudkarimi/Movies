@@ -27,8 +27,8 @@ class MoviesListViewModel @Inject constructor(
     private val moviesList: GetMoviesListUseCase,
     private val addToBasket: AddItemToBasketUseCase,
     private val removeFromBasket: RemoveFromBasketUseCase,
-    private val observeBasketContent: ObserveBasketContentUseCase,
-    private val featureFlagRepository: FeatureFlagRepository
+    observeBasketContent: ObserveBasketContentUseCase,
+    featureFlagRepository: FeatureFlagRepository
 ) : ViewModel() {
 
 
@@ -64,12 +64,8 @@ class MoviesListViewModel @Inject constructor(
         }
     }
 
-    private fun updateLoadingState(isLoading: Boolean) {
-        _uiState.update { it.copy(isLoading = isLoading) }
-    }
-
     private fun loadMovies() {
-        updateLoadingState(true)
+        _uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             moviesList()
                 .onRight { movies -> handleMoviesSuccess(movies) }
