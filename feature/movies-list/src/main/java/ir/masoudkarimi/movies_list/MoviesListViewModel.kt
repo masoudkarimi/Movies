@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -96,31 +97,30 @@ class MoviesListViewModel @Inject constructor(
     }
 
     fun addMovieToBasket(movie: Movie) {
-        executeUseCase(
-            useCase = { addToBasket(movie) },
-            onSuccess = {
-                Log.d("MoviesListViewModel", "Movie added to basket")
-            },
-            onFailure = {
-                Log.e("MoviesListViewModel", "Failed to add movie to basket", it)
-            }
-        )
+        viewModelScope.launch {
+            addToBasket(movie)
+                .onRight {
+                    Log.d("MoviesListViewModel", "Movie added to basket")
+                }
+                .onLeft {
+                    Log.e("MoviesListViewModel", "Failed to add movie to basket: $it")
+                }
+        }
     }
 
     fun removeMovieFromBasket(movie: Movie) {
-        executeUseCase(
-            useCase = { removeFromBasket(movie) },
-            onSuccess = {
-                Log.d("MoviesListViewModel", "Movie removed to basket")
-            },
-            onFailure = {
-                Log.e("MoviesListViewModel", "Failed to remove movie from basket", it)
-            }
-        )
+        viewModelScope.launch {
+            removeFromBasket(movie)
+                .onRight {
+                    Log.d("MoviesListViewModel", "Movie removed from basket")
+                }
+                .onLeft {
+                    Log.e("MoviesListViewModel", "Failed to remove movie from basket: $it")
+                }
+        }
     }
 
     fun retryClicked() {
         loadMovies()
     }
-
 }

@@ -16,4 +16,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(libs.coil)
     implementation(libs.coil.network)
+    implementation(platform(libs.arrow.bom))
+    implementation(libs.arrow.core)
+    implementation(libs.arrow.fx.coroutines)
 }
