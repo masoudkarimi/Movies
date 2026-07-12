@@ -1,8 +1,9 @@
 package ir.masoudkarimi.movies.ui.theme
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -43,7 +44,7 @@ fun MoviesTheme(
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            dynamicColorScheme(context, darkTheme)
         }
 
         darkTheme -> DarkColorScheme
@@ -55,4 +56,14 @@ fun MoviesTheme(
         typography = Typography,
         content = content
     )
+}
+
+@SuppressLint("NewApi")
+private fun dynamicColorScheme(
+    context: android.content.Context,
+    darkTheme: Boolean,
+): ColorScheme = if (darkTheme) {
+    dynamicDarkColorScheme(context)
+} else {
+    dynamicLightColorScheme(context)
 }
