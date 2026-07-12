@@ -1,7 +1,7 @@
 package ir.masoudkarimi.gradle.plugins
 
-import com.android.build.gradle.LibraryExtension
-import ir.masoudkarimi.gradle.configureAndroidCompose
+import com.android.build.api.dsl.LibraryExtension
+import ir.masoudkarimi.gradle.configureAndroidComposeDependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -22,7 +22,8 @@ class LibraryComposePlugin : Plugin<Project> {
       apply(plugin = "org.jetbrains.kotlin.plugin.compose")
 
       val extension = extensions.getByType<LibraryExtension>()
-      configureAndroidCompose(extension)
+      extension.buildFeatures.compose = true
+      configureAndroidComposeDependencies()
     }
   }
 }

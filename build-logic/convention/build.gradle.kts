@@ -14,10 +14,11 @@ kotlin {
 }
 
 dependencies {
-    compileOnly(libs.androidGradlePlugin)
-    compileOnly(libs.kotlinGradlePlugin)
-    compileOnly(libs.kspGradlePlugin)
-    compileOnly(libs.kotlinComposeCompilerPlugin)
+    implementation(libs.androidGradlePlugin)
+    implementation(libs.kotlinGradlePlugin)
+    implementation(libs.kspGradlePlugin)
+    implementation(libs.kotlinComposeCompilerPlugin)
+    implementation(libs.hiltGradlePlugin)
 }
 
 tasks {

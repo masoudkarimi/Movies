@@ -1,7 +1,7 @@
 package ir.masoudkarimi.gradle.plugins
 
 import com.android.build.api.dsl.ApplicationExtension
-import ir.masoudkarimi.gradle.configureAndroidCompose
+import ir.masoudkarimi.gradle.configureAndroidComposeDependencies
 import ir.masoudkarimi.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -28,7 +28,8 @@ class ApplicationComposePlugin : Plugin<Project> {
             }
 
             val extension = extensions.getByType<ApplicationExtension>()
-            configureAndroidCompose(extension)
+            extension.buildFeatures.compose = true
+            configureAndroidComposeDependencies()
         }
     }
 }
