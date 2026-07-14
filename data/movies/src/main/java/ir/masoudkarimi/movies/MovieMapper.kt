@@ -1,4 +1,4 @@
-package ir.masoudkarimi.movies.resource
+package ir.masoudkarimi.movies
 
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.network.model.MovieDto

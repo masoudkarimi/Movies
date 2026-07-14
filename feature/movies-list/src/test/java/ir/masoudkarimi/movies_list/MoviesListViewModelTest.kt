@@ -2,6 +2,7 @@ package ir.masoudkarimi.movies_list
 
 import android.util.Log
 import app.cash.turbine.test
+import arrow.core.Either
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.every
@@ -15,6 +16,7 @@ import ir.masoudkarimi.basket.RemoveFromBasketUseCase
 import ir.masoudkarimi.feature_flag.FeatureFlagRepository
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movies.GetMoviesListUseCase
+import ir.masoudkarimi.movies.MoviesError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -70,7 +72,7 @@ class MoviesListViewModelTest {
         // Mock the use case to return a successful result
         val mockMovies = listOf(Movie(1, "Movie 1", ""), Movie(2, "Movie 2", ""))
 
-        coEvery { getMoviesListUseCase() } returns Result.success(mockMovies)
+        coEvery { getMoviesListUseCase() } returns Either.Right(mockMovies)
         viewModel = createMoviesListViewModel()
         viewModel.uiState.test {
             // Skip initial state
@@ -91,7 +93,7 @@ class MoviesListViewModelTest {
     @Test
     fun `loadMovies should emit error on failure`() = runTest {
         // Arrange
-        coEvery { getMoviesListUseCase() } returns Result.failure(Exception("Error"))
+        coEvery { getMoviesListUseCase() } returns Either.Left(MoviesError())
         viewModel = createMoviesListViewModel()
         // Act
         viewModel.uiState.test {
@@ -111,7 +113,7 @@ class MoviesListViewModelTest {
     fun `addMovieToBasket should update basket size correctly`() = runTest {
         basketRepository.clear()
         val mockMovies = listOf(Movie(1, "Movie 1", ""), Movie(2, "Movie 2", ""))
-        coEvery { getMoviesListUseCase() } returns Result.success(mockMovies)
+        coEvery { getMoviesListUseCase() } returns Either.Right(mockMovies)
 
         // Mock add movie to basket
         val mockMovie = Movie(1, "Movie 1", "")

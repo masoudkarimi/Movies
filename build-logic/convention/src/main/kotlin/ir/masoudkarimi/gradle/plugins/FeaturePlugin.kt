@@ -25,6 +25,9 @@ class FeaturePlugin: Plugin<Project> {
                 add("implementation", project(":domain:model"))
                 add("implementation", project(":core:android"))
                 add("implementation", libs.findLibrary("hilt.navigation.compose").get())
+                add("implementation", platform(libs.findLibrary("arrow.bom").get()))
+                add("implementation", libs.findLibrary("arrow.core").get())
+                add("implementation", libs.findLibrary("arrow.fx.coroutines").get())
             }
         }
     }
