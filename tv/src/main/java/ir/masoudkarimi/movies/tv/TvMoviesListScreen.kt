@@ -6,24 +6,29 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.tv.material3.Card
+import androidx.tv.material3.CardDefaults
+import androidx.tv.material3.ClassicCard
 import androidx.tv.material3.MaterialTheme
+import androidx.tv.material3.Text
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -86,10 +91,10 @@ private fun TvMoviesGrid(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
-        columns = GridCells.Adaptive(minSize = 180.dp),
-        contentPadding = PaddingValues(horizontal = 48.dp),
-        horizontalArrangement = Arrangement.spacedBy(24.dp),
+        modifier = modifier.fillMaxSize(),
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(bottom = 48.dp),
+        horizontalArrangement = Arrangement.spacedBy(32.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp),
     ) {
         items(
@@ -110,13 +115,10 @@ private fun TvMoviePosterCard(
     onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = modifier.width(180.dp),
-        onClick = { onMovieClick(movieState.movie) }
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+    ClassicCard(
+        modifier = modifier.fillMaxWidth(),
+        onClick = { onMovieClick(movieState.movie) },
+        image = {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(movieState.movie.posterUrl)
@@ -125,16 +127,29 @@ private fun TvMoviePosterCard(
                 contentDescription = movieState.movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(180.dp)
-                    .aspectRatio(2f / 3f)
+                    .fillMaxWidth()
+                    .aspectRatio(16f / 9f)
+                    .clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
             )
-
+        },
+        title = {
             Text(
-                modifier = Modifier.padding(horizontal = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(72.dp)
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
                 text = movieState.movie.title,
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 2
             )
-        }
-    }
+        },
+        colors = CardDefaults.colors(
+            containerColor = Color(0xFF1F1F1F),
+            contentColor = Color.White,
+            focusedContainerColor = Color(0xFF2A2A2A),
+            focusedContentColor = Color.White,
+            pressedContainerColor = Color(0xFF2A2A2A),
+            pressedContentColor = Color.White
+        )
+    )
 }
