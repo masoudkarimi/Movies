@@ -4,10 +4,6 @@ plugins {
 
 android {
     namespace = "ir.masoudkarimi.movies.tv"
-    compileSdk {
-        version = release(35)
-    }
-
     defaultConfig {
         applicationId = "ir.masoudkarimi.movies.tv"
         versionCode = 1
