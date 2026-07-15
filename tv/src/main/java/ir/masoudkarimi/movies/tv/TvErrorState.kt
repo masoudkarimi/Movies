@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Button
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import ir.masoudkarimi.movies.tv.ui.theme.tvButtonColors
 
 @Composable
 fun TvErrorState(
@@ -28,6 +29,7 @@ fun TvErrorState(
 
         Button(
             onClick = onRetryClick,
+            colors = tvButtonColors(),
         ) {
             Text(text = "Retry")
         }

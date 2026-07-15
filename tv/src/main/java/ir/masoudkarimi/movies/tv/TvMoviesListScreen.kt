@@ -19,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -35,6 +34,7 @@ import coil3.request.crossfade
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movies_list.MovieState
 import ir.masoudkarimi.movies_list.MoviesListViewModel
+import ir.masoudkarimi.movies.tv.ui.theme.tvMoviesColors
 
 @Composable
 fun TvMoviesListScreen(
@@ -115,6 +115,8 @@ private fun TvMoviePosterCard(
     onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tvColors = MaterialTheme.tvMoviesColors
+
     ClassicCard(
         modifier = modifier.fillMaxWidth(),
         onClick = { onMovieClick(movieState.movie) },
@@ -144,12 +146,12 @@ private fun TvMoviePosterCard(
             )
         },
         colors = CardDefaults.colors(
-            containerColor = Color(0xFF1F1F1F),
-            contentColor = Color.White,
-            focusedContainerColor = Color(0xFF2A2A2A),
-            focusedContentColor = Color.White,
-            pressedContainerColor = Color(0xFF2A2A2A),
-            pressedContentColor = Color.White
+            containerColor = tvColors.cardContainer,
+            contentColor = tvColors.cardContent,
+            focusedContainerColor = tvColors.cardFocusedContainer,
+            focusedContentColor = tvColors.cardContent,
+            pressedContainerColor = tvColors.cardFocusedContainer,
+            pressedContentColor = tvColors.cardContent
         )
     )
 }

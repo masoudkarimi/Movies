@@ -28,6 +28,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import ir.masoudkarimi.model.Movie
 import ir.masoudkarimi.movie_detail.MovieDetailViewModel
+import ir.masoudkarimi.movies.tv.ui.theme.tvButtonColors
 
 @Composable
 fun TvMovieDetailScreen(
@@ -79,6 +80,8 @@ private fun TvMovieDetailContent(
     onRemoveFromBasketClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val buttonColors = tvButtonColors()
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(28.dp),
@@ -113,6 +116,7 @@ private fun TvMovieDetailContent(
             ) {
                 Button(
                     onClick = onBackClick,
+                    colors = buttonColors,
                 ) {
                     Text(text = "Back")
                 }
@@ -122,6 +126,7 @@ private fun TvMovieDetailContent(
                         onClick = {
                             onRemoveFromBasketClick(movie)
                         },
+                        colors = buttonColors,
                     ) {
                         Text(text = "Remove from Basket")
                     }
@@ -130,6 +135,7 @@ private fun TvMovieDetailContent(
                         onClick = {
                             onAddToBasketClick(movie)
                         },
+                        colors = buttonColors,
                     ) {
                         Text(text = "Add to Basket")
                     }

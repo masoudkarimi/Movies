@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
-import androidx.tv.material3.MaterialTheme
 
 @Composable
 fun TvMoviesApp(
@@ -22,54 +21,51 @@ fun TvMoviesApp(
     val currentRoute = backStackEntry?.destination?.route
     val selectedDestination = TvDestination.selectDestinationForRoute(currentRoute)
 
-    MaterialTheme {
-        TvNavigationDrawer(
-            modifier = modifier.fillMaxSize(),
-            selectedDestination = selectedDestination,
-            onDestinationClick = { destination ->
-                navController.navigateToTopLevelDestination(destination)
-            }
+    TvNavigationDrawer(
+        modifier = modifier.fillMaxSize(),
+        selectedDestination = selectedDestination,
+        onDestinationClick = { destination ->
+            navController.navigateToTopLevelDestination(destination)
+        }
+    ) {
+        NavHost(
+            modifier = modifier,
+            navController = navController,
+            startDestination = TvDestination.Movies.route
         ) {
-            NavHost(
-                modifier = modifier,
-                navController = navController,
-                startDestination = TvDestination.Movies.route
+            composable(route = TvDestination.Movies.route) {
+                TvMoviesListScreen(
+                    onMovieClick = { movie ->
+                        navController.navigate(
+                            TvDestination.movieDetailRoute(movie.id)
+                        )
+                    }
+                )
+            }
+
+            composable(
+                route = TvDestination.MOVIE_DETAIL_ROUTE,
+                arguments = listOf(
+                    navArgument("movieId") {
+                        type = NavType.StringType
+                    }
+                )
             ) {
-                composable(route = TvDestination.Movies.route) {
-                    TvMoviesListScreen(
-                        onMovieClick = { movie ->
-                            navController.navigate(
-                                TvDestination.movieDetailRoute(movie.id)
-                            )
-                        }
-                    )
-                }
+                TvMovieDetailScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
 
-                composable(
-                    route = TvDestination.MOVIE_DETAIL_ROUTE,
-                    arguments = listOf(
-                        navArgument("movieId") {
-                            type = NavType.StringType
-                        }
-                    )
-                ) {
-                    TvMovieDetailScreen(
-                        onBackClick = {
-                            navController.popBackStack()
-                        }
-                    )
-                }
+            composable(route = TvDestination.Basket.route) {
+                TvPlaceholderScreen(title = "Basket")
+            }
 
-                composable(route = TvDestination.Basket.route) {
-                    TvPlaceholderScreen(title = "Basket")
-                }
-
-                composable(route = TvDestination.Settings.route) {
-                    TvPlaceholderScreen(title = "Settings")
-                }
+            composable(route = TvDestination.Settings.route) {
+                TvPlaceholderScreen(title = "Settings")
             }
         }
-
     }
 }
 

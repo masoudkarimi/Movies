@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import androidx.tv.material3.MaterialTheme
 import dagger.hilt.android.AndroidEntryPoint
+import ir.masoudkarimi.movies.tv.ui.theme.TvMoviesTheme
 
 @AndroidEntryPoint
 class TvMainActivity: ComponentActivity() {
@@ -14,7 +14,7 @@ class TvMainActivity: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MaterialTheme {
+            TvMoviesTheme {
                 TvMoviesApp(
                     navController = rememberNavController()
                 )
