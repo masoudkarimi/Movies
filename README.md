@@ -1,6 +1,6 @@
 # Movie App
 
-This project is an Android application named **Movie**, where users can explore a list of movies and manage them by adding or removing them from a basket. The app also features a feature flag that controls the availability of the "Add to Basket" button on the movie list screen.
+This project is an Android application named **Movie**, where users can explore a list of movies and manage them by adding or removing them from a basket. The app also includes a dedicated Android TV experience and a feature flag that controls the availability of the "Add to Basket" button on the movie list screen.
 
 The project is built following **Clean Architecture** and the **MVVM** (Model-View-ViewModel) pattern to ensure a clean separation of concerns and maintainability.
 
@@ -8,6 +8,23 @@ The project is built following **Clean Architecture** and the **MVVM** (Model-Vi
 |--------------------------------------|-------------------------------------|-------------------------------------|----------------------------------------------|-------------------------------------|
 | ![Movies Screen](/images/shot_1.png) | ![Basket Count](/images/shot_2.png) | ![Movie Detail](/images/shot_3.png) | ![Feature Flag Disabled](/images/shot_4.png) | ![Debug Drawer](/images/shot_5.png) |
 
+### Android TV
+
+The project now includes a separate `tv` module with a Leanback launcher entry, Android TV banner, TV-specific theme, D-pad friendly navigation, wide movie cards, and a landscape detail screen.
+
+| App Icon                             | TV Banner                             |
+|--------------------------------------|---------------------------------------|
+| ![App Icon](/images/app-icon.png)    | ![TV Banner](/images/tv-banner.png)   |
+
+| TV Movies Screen                               |
+|------------------------------------------------|
+| ![TV Movies Screen](/images/tv-screenshot.png) |
+
+To build the TV app:
+
+```bash
+./gradlew :tv:assembleDebug
+```
 
 ---
 
@@ -18,6 +35,8 @@ The project is organized into multiple modules to follow a clean architecture ap
 ### Technologies
 - **Kotlin**: Modern programming language for Android development.
 - **Jetpack Compose**: Declarative UI toolkit for building native Android interfaces.
+- **Compose for TV**: TV-optimized Compose components for D-pad navigation and focus states.
+- **Android TV / Leanback**: Dedicated TV launcher support through the `tv` module.
 - **Coroutines**: Simplifies asynchronous programming in Kotlin.
 - **Hilt**: Dependency injection library for Android.
 - **Retrofit**: HTTP client for making API requests.
@@ -28,22 +47,23 @@ The project is organized into multiple modules to follow a clean architecture ap
 ### Architecture
 
 1. **app**: The main entry point of the application, connecting feature modules and data layers.
-2. **feature:movies-list**: Handles the UI for displaying a list of movies.
-3. **feature:movie-detail**: Manages the UI for showing movie details.
-4. **data:network**: Handles network operations.
-5. **data:movies**: Manages movie-related data operations.
-6. **data:basket**: Handles basket data operations.
-7. **data:feature-flag**: Manages feature flag data.
-8. **domain:model**: Contains core data models.
-9. **domain:movies**: Includes use cases related to movies.
-10. **domain:basket**: Contains basket-related use cases.
-11. **domain:feature-flag**: Manages feature flag use cases.
-12. **core:android**: Contains Android-specific utilities.
+2. **tv**: Dedicated Android TV entry point with TV navigation, theme, and screens.
+3. **feature:movies-list**: Handles the UI for displaying a list of movies.
+4. **feature:movie-detail**: Manages the UI for showing movie details.
+5. **data:network**: Handles network operations.
+6. **data:movies**: Manages movie-related data operations.
+7. **data:basket**: Handles basket data operations.
+8. **data:feature-flag**: Manages feature flag data.
+9. **domain:model**: Contains core data models.
+10. **domain:movies**: Includes use cases related to movies.
+11. **domain:basket**: Contains basket-related use cases.
+12. **domain:feature-flag**: Manages feature flag use cases.
+13. **core:android**: Contains Android-specific utilities.
 
 ---
 
 Here's a visual representation of the dependencies between the modules, following the clean architecture principles:
-[![](https://mermaid.ink/img/pako:eNqdU7FugzAQ_RV0MyCgYBNX6pSlQ6d2qljccAEUsBGYtinh32tIJEggQspmvXvv3buz3cJOxggMkoqXqfGxfY6EYfCyNCzrxdgjV02FrJDfGdZWntVqWo654kyg-pHVYYafNTP4i9cHnLtcOln7nCdXRVnwTGizGPMeX0g05d3arNDHjCvEMfWq4yXolXCZMa5jqJ9eizLHAoWqT_O-sy3d1dzu4GrW-0km9SXXcVXTW3909PVI81kWeGBCgZVGYv2C214XgUp18giYPuZZkqoIItFpIm-UfD-KHTBVNWhCU-pBcJtx_fILYHue1xotuQDWwi8w37EdQgOX0sAJqUc9E47APH9je08bsvHc0A1Dh5DOhD8ptYNjU0pJENDA99wgdAkxAeNMyert_MWGnza0-BwEfY7uH1HyL24?type=png)](https://mermaid.live/edit#pako:eNqdU7FugzAQ_RV0MyCgYBNX6pSlQ6d2qljccAEUsBGYtinh32tIJEggQspmvXvv3buz3cJOxggMkoqXqfGxfY6EYfCyNCzrxdgjV02FrJDfGdZWntVqWo654kyg-pHVYYafNTP4i9cHnLtcOln7nCdXRVnwTGizGPMeX0g05d3arNDHjCvEMfWq4yXolXCZMa5jqJ9eizLHAoWqT_O-sy3d1dzu4GrW-0km9SXXcVXTW3909PVI81kWeGBCgZVGYv2C214XgUp18giYPuZZkqoIItFpIm-UfD-KHTBVNWhCU-pBcJtx_fILYHue1xotuQDWwi8w37EdQgOX0sAJqUc9E47APH9je08bsvHc0A1Dh5DOhD8ptYNjU0pJENDA99wgdAkxAeNMyert_MWGnza0-BwEfY7uH1HyL24)
+[![](https://mermaid.ink/img/pako:eNqNVMtugzAQ_BW0Z4jC08SVemkuPfTUnioubnAABWwEJm2a5N_rkAcGQ9IbzM7O7NjW7mHFYwoYkoqUqfGxfIqYYZCyNCzr2VhTIpqK4oJvM1pbeVaLybIVU0GyXK3HRBDMqPjm1UbDz5oa_EXqDRUafLGy1jlJekVekIxJsZjmI3i_7UQQ23vJxqpKsEt5mEuFu1gq2qVS0WGoa22QaQgPDc64bjF1BCPZpxse0rt5HhC7AR8qtsE15uUi_mE-wpxwH9W82St31zIOr0WZ04IyUR90Ye1OJ3uGR6y8nMmeLqr6_KYGV2cbfVQ91XsMLVCfB6ZcHVkMWFQNNaGglazKX9ifNCIQqcwRAZafeZakIoKIHWVTSdgn58W1r-JNkgJek7yWf00pM9JlRuRWKm4oaQR_37HVtUdKAN7DD2AvdGau7yHHdubeArm-CTvAju3PPA8h5ASB79qLowm_reV8FqAAhaHjonkYLtzABBpngldv513YrkQ5E2UxrV54wwRgGznHPyJawhE?type=png)](https://mermaid.live/edit#pako:eNqNVMtugzAQ_BW0Z4gIYAiu1Etz6aGn9lRxcYMDKGAjY9KmSf69DnlgXklvMDs7s2Nbu4cVjylgSAQpU-Nj-RQxwyBlaVjWs7GmRNaC4oJvM1pZeVbJybIVU0myXK_HRBLMqPzmYjPAz5oD-ItUGyoH8MXKWuck6RR5QTKmxGKaj-DdthNBbu8lG6tqwS7lfi4dbmPpaJtKR_uhrrVepj7cNzjjQ4upIxjJPt3wkN7O84DYDvhQsQk-YF4u4h_mI8wJ91HNm712dw3j8FqUOS0ok9VhKDy408me_hFrL2eyp42qP7-pwfXZRh9VR_UeYxCoywNTrY4sBixFTU0oqFBV9Qv7k0YEMlU5IsDqM8-SVEYQsaNqKgn75Ly49gleJyngNckr9VeXKiNdZkRtpeKGklry9x1bXXuUBOA9_AD2nMUsdEIfoWDuBg7yTNgBns-9meM7yHW9wPWRb7tHE34bU3u2sH0UBnNvgYLQt8PABBpnkou38zpstqIai7KYihdeM6n0fHT8A1ixwqs)
 
 ### Future Improvements
 There are a few features that I didn't implement in the project but could be done later:

@@ -27,6 +27,11 @@ turbine = "1.2.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 arrow = "2.0.1"
+tvMaterial = "1.0.0"
+androidBuiltInKotlin = "9.1.1"
+tvFoundation = "1.0.0"
+leanback = "1.2.0"
+glide = "4.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -77,6 +82,12 @@ hiltGradlePlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", ve
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+# TV
+androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "tvMaterial" }
+androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tvFoundation" }
+androidx-leanback = { group = "androidx.leanback", name = "leanback", version.ref = "leanback" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -86,6 +97,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-built-in1-kotlin = { id = "com.android.built-in-kotlin", version.ref = "androidBuiltInKotlin" }
 
 [bundles]
 unitTest = ["junit", "mockk", "mockk-android", "google-truth", "kotlinx-coroutines-test", "turbine"]
