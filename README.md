@@ -1,6 +1,6 @@
 # Movie App
 
-This project is an Android application named **Movie**, where users can explore a list of movies and manage them by adding or removing them from a basket. The app also features a feature flag that controls the availability of the "Add to Basket" button on the movie list screen.
+This project is an Android application named **Movie**, where users can explore a list of movies and manage them by adding or removing them from a basket. The app also includes a dedicated Android TV experience and a feature flag that controls the availability of the "Add to Basket" button on the movie list screen.
 
 The project is built following **Clean Architecture** and the **MVVM** (Model-View-ViewModel) pattern to ensure a clean separation of concerns and maintainability.
 
@@ -8,6 +8,23 @@ The project is built following **Clean Architecture** and the **MVVM** (Model-Vi
 |--------------------------------------|-------------------------------------|-------------------------------------|----------------------------------------------|-------------------------------------|
 | ![Movies Screen](/images/shot_1.png) | ![Basket Count](/images/shot_2.png) | ![Movie Detail](/images/shot_3.png) | ![Feature Flag Disabled](/images/shot_4.png) | ![Debug Drawer](/images/shot_5.png) |
 
+### Android TV
+
+The project now includes a separate `tv` module with a Leanback launcher entry, Android TV banner, TV-specific theme, D-pad friendly navigation, wide movie cards, and a landscape detail screen.
+
+| App Icon                             | TV Banner                             |
+|--------------------------------------|---------------------------------------|
+| ![App Icon](/images/app-icon.png)    | ![TV Banner](/images/tv-banner.png)   |
+
+| TV Movies Screen                               |
+|------------------------------------------------|
+| ![TV Movies Screen](/images/tv-screenshot.png) |
+
+To build the TV app:
+
+```bash
+./gradlew :tv:assembleDebug
+```
 
 ---
 
@@ -18,6 +35,8 @@ The project is organized into multiple modules to follow a clean architecture ap
 ### Technologies
 - **Kotlin**: Modern programming language for Android development.
 - **Jetpack Compose**: Declarative UI toolkit for building native Android interfaces.
+- **Compose for TV**: TV-optimized Compose components for D-pad navigation and focus states.
+- **Android TV / Leanback**: Dedicated TV launcher support through the `tv` module.
 - **Coroutines**: Simplifies asynchronous programming in Kotlin.
 - **Hilt**: Dependency injection library for Android.
 - **Retrofit**: HTTP client for making API requests.
@@ -28,17 +47,18 @@ The project is organized into multiple modules to follow a clean architecture ap
 ### Architecture
 
 1. **app**: The main entry point of the application, connecting feature modules and data layers.
-2. **feature:movies-list**: Handles the UI for displaying a list of movies.
-3. **feature:movie-detail**: Manages the UI for showing movie details.
-4. **data:network**: Handles network operations.
-5. **data:movies**: Manages movie-related data operations.
-6. **data:basket**: Handles basket data operations.
-7. **data:feature-flag**: Manages feature flag data.
-8. **domain:model**: Contains core data models.
-9. **domain:movies**: Includes use cases related to movies.
-10. **domain:basket**: Contains basket-related use cases.
-11. **domain:feature-flag**: Manages feature flag use cases.
-12. **core:android**: Contains Android-specific utilities.
+2. **tv**: Dedicated Android TV entry point with TV navigation, theme, and screens.
+3. **feature:movies-list**: Handles the UI for displaying a list of movies.
+4. **feature:movie-detail**: Manages the UI for showing movie details.
+5. **data:network**: Handles network operations.
+6. **data:movies**: Manages movie-related data operations.
+7. **data:basket**: Handles basket data operations.
+8. **data:feature-flag**: Manages feature flag data.
+9. **domain:model**: Contains core data models.
+10. **domain:movies**: Includes use cases related to movies.
+11. **domain:basket**: Contains basket-related use cases.
+12. **domain:feature-flag**: Manages feature flag use cases.
+13. **core:android**: Contains Android-specific utilities.
 
 ---
 
