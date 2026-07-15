@@ -93,7 +93,7 @@ private fun TvMoviesGrid(
     LazyVerticalGrid(
         modifier = modifier.fillMaxSize(),
         columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(bottom = 48.dp),
+        contentPadding = PaddingValues(bottom = 48.dp, top = 24.dp),
         horizontalArrangement = Arrangement.spacedBy(32.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp),
     ) {
@@ -137,7 +137,7 @@ private fun TvMoviePosterCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(72.dp)
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                    .padding(12.dp),
                 text = movieState.movie.title,
                 style = MaterialTheme.typography.titleMedium,
                 maxLines = 2
